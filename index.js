@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
 import questionsRoutes from './routes/questions.js';
 import Language from './models/Language.js';
 import Question from './models/Questions.js';
@@ -28,7 +29,8 @@ app.get("/", (req ,res) => {
 })
 
 app.use("/auth", authRoutes);
-app.use("/questions", questionsRoutes)
+app.use("/questions", questionsRoutes);
+app.use("/user", userRoutes);
 
 
 mongoose.connect(process.env.MONGO_URL ,{

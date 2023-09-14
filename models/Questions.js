@@ -2,13 +2,13 @@ import mongoose from 'mongoose'
 
 const QuestionSchema = new mongoose.Schema({
     languageId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: 'Language',
         required: true,
     },
     type: {
         type: String,
-        enum: ['mcq', 'image', 'audio'],
+        enum: ['mcq', 'img', 'audio'],
         required: true,
     },
     word: {
@@ -25,6 +25,11 @@ const QuestionSchema = new mongoose.Schema({
     },
     helper_text: {
         type: String,
+        required: true,
+    },
+    level: {
+        type: String, 
+        enum: ['easy', 'medium', 'hard'],
         required: true,
     },
     quiz: {

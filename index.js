@@ -4,9 +4,12 @@ import cors from 'cors'
 import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import morgan from 'morgan';
 import authRoutes from './routes/auth.js';
+import questionsRoutes from './routes/questions.js';
 import Language from './models/Language.js';
+import Question from './models/Questions.js';
+import { easyQuestions , mediumQuestions } from './data/data.js';
 //import { language } from './data/data.js';
 
 const app = express();
@@ -14,6 +17,7 @@ dotenv.config();
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("common"));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +28,7 @@ app.get("/", (req ,res) => {
 })
 
 app.use("/auth", authRoutes);
+app.use("/questions", questionsRoutes)
 
 
 mongoose.connect(process.env.MONGO_URL ,{
@@ -33,6 +38,8 @@ mongoose.connect(process.env.MONGO_URL ,{
 .then(() => {
     console.log('Connected to MongoDB');
 //    Language.insertMany(language);
+  //      Question.insertMany(easyQuestions);
+    //    Question.insertMany(mediumQuestions);
 })
 .catch((error) => { console.error('Error connecting to MongoDB:', error) });
 

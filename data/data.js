@@ -867,7 +867,7 @@ export const frenchMedium = [
   
 ]
 
-export const easyQuestions = [
+export const spanishEasy = [
   {
     "word": "Gracias",
     "translation": "Thank you",
@@ -1066,7 +1066,7 @@ export const easyQuestions = [
   }
 ]
 
-export const mediumQuestions = [
+export const spanishMedium = [
   {
     "word": "Perro",
     "translation": "Dog",

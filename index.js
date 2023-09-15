@@ -10,7 +10,7 @@ import userRoutes from './routes/user.js';
 import questionsRoutes from './routes/questions.js';
 import Language from './models/Language.js';
 import Question from './models/Questions.js';
-import { easyQuestions , mediumQuestions , frenchEasy, frenchMedium} from './data/data.js';
+import { frenchEasy, frenchMedium, spanishEasy, spanishMedium, germanEasy, germanMedium} from './data/data.js';
 //import { language } from './data/data.js';
 
 const app = express();
@@ -39,11 +39,15 @@ mongoose.connect(process.env.MONGO_URL ,{
 }) 
 .then(() => {
     console.log('Connected to MongoDB');
-//    Language.insertMany(language);
-       Question.insertMany(frenchEasy);
+    /*
+        Language.insertMany(language);
+        Question.insertMany(frenchEasy);
         Question.insertMany(frenchMedium);
-               Question.insertMany(easyQuestions);
-                     Question.insertMany(mediumQuestions);
+        Question.insertMany(spanishEasy);
+        Question.insertMany(spanishMedium);
+        Question.insertMany(germanEasy);
+        Question.insertMany(germanMedium);
+    */
 })
 .catch((error) => { console.error('Error connecting to MongoDB:', error) });
 

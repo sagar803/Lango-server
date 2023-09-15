@@ -22,23 +22,15 @@ const UserSchema = new mongoose.Schema(
       min: 5,
     },
     primaryLanguage: {
-        type: mongoose.Schema.Types.String,
-        ref: 'Language',
-        default : 'EN'
+      type: mongoose.Schema.Types.String,
+      ref: 'Language',
+      default : 'EN'
     },
-    progress: [
+    questionsSolved: [
       {
-        language: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Language',
-        },
-        questionsSolved: [
-          {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: Question,
-          }
-        ],
-      },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Question',
+      }
     ],
   },
   { timestamps: true }

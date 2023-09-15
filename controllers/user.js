@@ -1,5 +1,6 @@
 import Questions from "../models/Questions.js";
 import Submission from "../models/Submission.js";
+import User from "../models/User.js";
 
 /* progress query */
 export const getProgress = async (req, res) => {
@@ -19,20 +20,18 @@ export const getProgress = async (req, res) => {
   }
 };
 
-export const getLeaderboard = async(req, res) => {
+export const getRankings = async(req, res) => {
   try{
-    const {questionId, userId, submission} = req.body;
-    const question = await Questions.findById(questionId);
-    const isCorrect = (question.quiz.correct_option === submission);
-    
-    const newSubmission = new Submission({
-      userId, 
-      questionId,
-      submittedAnswer: submission,
-      isCorrect,
-    });
-    await newSubmission.save();
-    res.status(200).json({result: isCorrect});
+    //total no of question
+    const totalQuestionsCount = await Questions.countDocuments();
+    //question solved by each user in sorted order
+    const ranking = await User.find().sort({questionsSolved: -1}).exec();
+    const leaderboard = ranking.map((user, index) => ({
+      rank: index,
+      name: user.fullName,
+      solved: user.questionsSolved.length
+    }));
+    res.status(200).json({result: leaderboard});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

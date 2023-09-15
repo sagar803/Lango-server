@@ -1,5 +1,6 @@
 import Questions from "../models/Questions.js";
 import Submission from "../models/Submission.js";
+import User from "../models/User.js";
 
 /* questions query */
 export const getQuestions = async (req, res) => {
@@ -25,8 +26,22 @@ export const submitAnswer = async(req, res) => {
       submittedAnswer: submission,
       isCorrect,
     });
+
+    // adding solved question to user array if the solution is correct and has not previously solved by user
+    const user = await User.findById(userId);
+
+    const isSolved = user.questionsSolved.includes(questionId);
+    console.log(questionId);
+    console.log(isSolved, 'lol');
+    if(isCorrect && !isSolved){
+      const user = await User.findById(userId);
+      user.questionsSolved.push(questionId);
+      await user.save();
+    }
+
     await newSubmission.save();
     res.status(200).json({result: isCorrect});
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

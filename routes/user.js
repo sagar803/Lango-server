@@ -1,9 +1,9 @@
 import express from "express";
-import { getProgress, getLeaderboard } from "../controllers/user.js";
+import { getProgress, getRankings } from "../controllers/user.js";
 
 const router = express.Router();
 
+router.get("/rankings", getRankings);
 router.get("/:id", getProgress);
-router.get("/leaderboard", getLeaderboard);
 
 export default router;
